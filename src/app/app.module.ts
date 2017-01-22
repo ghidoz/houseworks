@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AddActivityPage } from '../pages/add-activity/add-activity';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDLmHpaUw-YK2dP-zT8j1n44WntFrrcJYw',
@@ -27,7 +28,8 @@ const firebaseAuthConfig = {
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddActivityPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -40,7 +42,8 @@ const firebaseAuthConfig = {
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddActivityPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

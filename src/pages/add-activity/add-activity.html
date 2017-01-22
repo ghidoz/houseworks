@@ -20,7 +20,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let activity of activities | async">
+    <button ion-item *ngFor="let activity of activities | async" (click)="add(activity.$key)">
       {{activity.name}}
     </button>
   </ion-list>

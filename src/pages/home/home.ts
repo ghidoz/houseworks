@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
 import { AddActivityPage } from '../add-activity/add-activity';
+import { ActivityService } from '../../providers/activity';
+import { FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -9,9 +11,16 @@ import { AddActivityPage } from '../add-activity/add-activity';
 })
 export class HomePage {
 
-  constructor(private navCtrl: NavController,
-              private modalCtrl: ModalController) {
+  userActivities: FirebaseListObservable<any[]>
 
+  constructor(private navCtrl: NavController,
+              private modalCtrl: ModalController,
+              private activityService: ActivityService) {
+  }
+
+  ionViewDidLoad() {
+    this.userActivities = this.activityService.query();
+    this.userActivities.subscribe((data) => console.log(data));
   }
 
   public addActivity() {

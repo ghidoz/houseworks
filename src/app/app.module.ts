@@ -8,6 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AddActivityPage } from '../pages/add-activity/add-activity';
+import { ActivityService } from '../providers/activity';
 import { UserService } from '../providers/user-service';
 
 export const firebaseConfig = {
@@ -48,6 +49,7 @@ const firebaseAuthConfig = {
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ActivityService,
     UserService
   ]
 })

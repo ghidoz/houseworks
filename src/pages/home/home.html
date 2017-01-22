@@ -6,6 +6,21 @@
 
 <ion-content padding>
   <ion-fab top right edge>
-    <button ion-fab (click)="addActivity()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab (click)="addActivity()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
+  <ion-card *ngFor="let activity of userActivities | async">
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="img/marty-avatar.png">
+      </ion-avatar>
+      <h2>Marty McFly</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
+    <ion-card-content>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a
+        DeLorean?! Whoa. This is heavy.</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

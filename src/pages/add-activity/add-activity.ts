@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { UserService } from '../../providers/user-service';
+import { ActivityService } from '../../providers/activity';
 
 /*
  Generated class for the AddActivity page.
@@ -21,7 +22,8 @@ export class AddActivityPage {
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private af: AngularFire,
-              private userService: UserService) {
+              private userService: UserService,
+              private activityService: ActivityService) {
   }
 
   ionViewDidLoad() {
@@ -29,6 +31,11 @@ export class AddActivityPage {
   }
 
   dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  add(id: string) {
+    this.activityService.save(id);
     this.viewCtrl.dismiss();
   }
 

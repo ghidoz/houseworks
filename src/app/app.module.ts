@@ -6,6 +6,14 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { AngularFireModule } from 'angularfire2';
+
+export const firebaseConfig = {
+  apiKey: 'AIzaSyDLmHpaUw-YK2dP-zT8j1n44WntFrrcJYw',
+  authDomain: 'houseworks-ffa4e.firebaseapp.com',
+  databaseURL: 'https://houseworks-ffa4e.firebaseio.com',
+  storageBucket: 'houseworks-ffa4e.appspot.com'
+};
 
 @NgModule({
   declarations: [
@@ -17,7 +25,8 @@ import { LoginPage } from '../pages/login/login';
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

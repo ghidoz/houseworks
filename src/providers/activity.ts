@@ -18,8 +18,14 @@ export class ActivityService {
               private userService: UserService) {
   }
 
-  query() {
-    this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities');
+  query(): FirebaseListObservable<any[]> {
+    this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities')
+      .map((activities: any) => {
+        activities.map((userActivity: any) => {
+          userActivity.activity = this.af.database.object('/' + this.userService.user.group + '/activities/' + userActivity.activity);
+        });
+        return activities;
+      }) as FirebaseListObservable<any[]>;
     return this.list;
   }
 

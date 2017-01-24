@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { UserService } from '../../providers/user-service';
+import { AuthService } from '../../providers/auth-service';
 import { ActivityService } from '../../providers/activity';
 
 /*
@@ -22,12 +22,12 @@ export class AddActivityPage {
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private af: AngularFire,
-              private userService: UserService,
+              private authService: AuthService,
               private activityService: ActivityService) {
   }
 
   ionViewDidLoad() {
-    this.activities = this.af.database.list('/' + this.userService.user.group + '/activities');
+    this.activities = this.af.database.list('/' + this.authService.user.group + '/activities');
   }
 
   dismiss() {

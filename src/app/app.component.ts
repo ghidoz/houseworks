@@ -5,8 +5,6 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { LoginPage } from '../pages/login/login';
 import { AngularFire } from 'angularfire2';
 import { TabsPage } from '../pages/tabs/tabs';
-import { ViewChild } from '@angular/core/src/metadata/di';
-import { UserService } from '../providers/user-service';
 
 
 @Component({
@@ -17,8 +15,7 @@ export class MyApp {
   public rootPage;
 
   constructor(platform: Platform,
-              private af: AngularFire,
-              private userService: UserService) {
+              private af: AngularFire) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -34,12 +31,6 @@ export class MyApp {
         this.rootPage = LoginPage;
       } else {
         this.rootPage = TabsPage;
-        this.userService.user = {
-          uid: data.auth.uid,
-          name: data.auth.displayName,
-          photo: data.auth.photoURL,
-          group: 'barcelona'
-        };
       }
     });
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { UserService } from './user-service';
+import { AuthService } from './auth-service';
 
 /*
   Generated class for the Activity provider.
@@ -15,7 +15,7 @@ export class ActivityService {
   private list: FirebaseListObservable<any[]>;
 
   constructor(private af: AngularFire,
-              private userService: UserService) {
+              private userService: AuthService) {
   }
 
   query(): FirebaseListObservable<any[]> {

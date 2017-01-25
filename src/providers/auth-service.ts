@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { FirebaseAuthState, AngularFireAuth, AuthProviders, AuthMethods } from 'angularfire2';
+import 'rxjs/add/operator/mergeMap';
+import {
+  FirebaseAuthState, AngularFireAuth, AuthProviders, AuthMethods, AngularFire,
+  FirebaseObjectObservable
+} from 'angularfire2';
+import { Observable } from 'rxjs';
 
 /*
   Generated class for the AuthService provider.
@@ -15,16 +19,32 @@ export class AuthService {
   private authState: FirebaseAuthState;
   public user: any;
 
-  constructor(public auth$: AngularFireAuth) {
-    auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
-      this.user = {
-        uid: this.authState.auth.uid,
-        name: this.authState.auth.displayName,
-        photo: this.authState.auth.photoURL,
-        group: 'barcelona'
-      };
+  constructor(public auth$: AngularFireAuth,
+              private af: AngularFire) {
+  }
 
+  checkAuth(): Observable<any> {
+    return this.auth$.flatMap((state: FirebaseAuthState) => {
+      if (state) {
+        this.authState = state;
+        let user$: FirebaseObjectObservable<any> = this.af.database.object('/users/' + this.authState.auth.uid);
+        return user$.map((user: any) => {
+          if (!user.$exists()) {
+            this.user = {
+              name: this.authState.auth.displayName,
+              photo: this.authState.auth.photoURL,
+              group: 'barcelona',
+              points: 0
+            };
+            user$.set(this.user);
+          } else {
+            this.user = user;
+          }
+          return this.user;
+        });
+      } else {
+        return Observable.of(null);
+      }
     });
   }
 

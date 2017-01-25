@@ -52,10 +52,10 @@ export class AuthService {
     return this.authState !== null;
   }
 
-  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
+  signIn(): firebase.Promise<FirebaseAuthState> {
     return this.auth$.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup
+      provider: AuthProviders.Facebook,
+      method: AuthMethods.Redirect
     });
   }
 

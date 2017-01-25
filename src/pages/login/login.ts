@@ -24,7 +24,7 @@ export class LoginPage {
   }
 
   login() {
-    this.authService.signInWithGoogle();
+    this.authService.signIn();
   }
 
 }

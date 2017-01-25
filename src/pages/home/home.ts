@@ -20,7 +20,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.userActivities = this.activityService.query();
-    this.userActivities.subscribe((data) => console.log(data));
   }
 
   public addActivity() {

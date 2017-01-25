@@ -13,10 +13,10 @@
   <ion-card *ngFor="let activity of userActivities | async">
     <ion-item>
       <ion-avatar item-left>
-        <img src="img/marty-avatar.png">
+        <img [src]="(activity.user | async)?.photo">
       </ion-avatar>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
+      <h2>{{(activity.user | async)?.name}}</h2>
+      <p>{{activity.date | date:'short'}}</p>
     </ion-item>
     <ion-card-content>
       <p>{{(activity.activity | async)?.name}}</p>

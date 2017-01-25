@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth-service';
+import * as firebase from 'firebase'
 
 /*
   Generated class for the Activity provider.
@@ -23,6 +24,7 @@ export class ActivityService {
       .map((activities: any) => {
         activities.map((userActivity: any) => {
           userActivity.activity = this.af.database.object('/' + this.userService.user.group + '/activities/' + userActivity.activity);
+          userActivity.user = this.af.database.object('/users/' + userActivity.user);
         });
         return activities;
       }) as FirebaseListObservable<any[]>;
@@ -31,8 +33,9 @@ export class ActivityService {
 
   save(id: string) {
     let userActivity: any = {
-      user: this.userService.user.uid,
-      activity: id
+      user: this.userService.user.$key,
+      activity: id,
+      date: firebase.database.ServerValue.TIMESTAMP
     };
     this.list.push(userActivity);
   }

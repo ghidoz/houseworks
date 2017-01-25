@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
+import { AuthService } from '../../providers/auth-service';
 
 /*
   Generated class for the Login page.
@@ -16,14 +17,14 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private af: AngularFire) {}
+              private authService: AuthService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
   login() {
-    this.af.auth.login();
+    this.authService.signInWithGoogle();
   }
 
 }

@@ -20,8 +20,13 @@ export class ActivityService {
   }
 
   query(): FirebaseListObservable<any[]> {
-    this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities')
+    this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities', {
+      query: {
+        orderByKey: true
+      }
+    })
       .map((activities: any) => {
+        activities = activities.reverse();
         activities.map((userActivity: any) => {
           userActivity.activity = this.af.database.object('/' + this.userService.user.group + '/activities/' + userActivity.activity);
           userActivity.user = this.af.database.object('/users/' + userActivity.user);

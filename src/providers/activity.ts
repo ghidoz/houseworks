@@ -46,7 +46,7 @@ export class ActivityService {
     this.list.push(userActivity);
   }
 
-  stats(startingDate: number): FirebaseListObservable<any[]> {
+  stats(): FirebaseListObservable<any[]> {
     return this.af.database.list('/' + this.userService.user.group + '/userActivities').map((response: any) => {
       response = _.groupBy(response, 'activity');
       response = _.values(_.mapValues(response, (userActivity: any, activityId: string) => {

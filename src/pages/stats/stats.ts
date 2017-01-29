@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ActivityService } from '../../providers/activity';
 import { FirebaseListObservable } from 'angularfire2';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'page-stats',
@@ -10,6 +11,8 @@ import { FirebaseListObservable } from 'angularfire2';
 export class StatsPage {
 
   public stats: FirebaseListObservable<any[]>;
+  private startAt$: Subject<number> = new BehaviorSubject<number>(null);
+  private filter: string = '';
 
   constructor(public navCtrl: NavController,
               private activityService: ActivityService) {
@@ -17,7 +20,19 @@ export class StatsPage {
   }
 
   ionViewDidLoad() {
-    this.stats = this.activityService.stats();
+    this.stats = this.activityService.stats(this.startAt$);
+  }
+
+  public filterStats($event) {
+    let date: number = null;
+    if (this.filter === 'week') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24 * 7;
+    } else if (this.filter === 'month') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24 * 30;
+    } else if (this.filter === 'day') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24;
+    }
+    this.startAt$.next(date);
   }
 
 }

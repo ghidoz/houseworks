@@ -4,6 +4,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth-service';
 import * as firebase from 'firebase';
 import * as _ from 'lodash';
+import { Subject } from 'rxjs';
 
 /*
   Generated class for the Activity provider.
@@ -46,8 +47,13 @@ export class ActivityService {
     this.list.push(userActivity);
   }
 
-  stats(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/' + this.userService.user.group + '/userActivities').map((response: any) => {
+  stats(startAt$: Subject<number>): FirebaseListObservable<any[]> {
+    return this.af.database.list('/' + this.userService.user.group + '/userActivities', {
+      query: {
+        orderByChild: 'date',
+        startAt: startAt$
+      }
+    }).map((response: any) => {
       response = _.groupBy(response, 'activity');
       response = _.values(_.mapValues(response, (userActivity: any, activityId: string) => {
         let users: any = _.countBy(userActivity, 'user');

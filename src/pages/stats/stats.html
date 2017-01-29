@@ -33,6 +33,7 @@
           <img [src]="(user.user | async)?.photo">
         </ion-avatar>
         {{(user.user | async)?.name}}
+        <div item-right *ngIf="user.last" class="last">LAST</div>
         <ion-badge item-right>{{user.count}}</ion-badge>
       </ion-item>
     </ion-list>

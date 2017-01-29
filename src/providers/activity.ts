@@ -57,10 +57,12 @@ export class ActivityService {
       response = _.groupBy(response, 'activity');
       response = _.values(_.mapValues(response, (userActivity: any, activityId: string) => {
         let users: any = _.countBy(userActivity, 'user');
+        let lastUserId: any = (_.last(_.orderBy(userActivity, 'date')) as any).user;
         users = _.reverse(_.orderBy(_.values(_.mapValues(users, (count: number, userId: string) => {
           return {
             user: this.af.database.object('/users/' + userId),
-            count: count
+            count: count,
+            last: userId === lastUserId
           };
         })), 'count'));
         return {

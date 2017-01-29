@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth-service';
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 
 /*
   Generated class for the Activity provider.

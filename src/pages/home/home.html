@@ -16,7 +16,7 @@
         <img [src]="(activity.user | async)?.photo">
       </ion-avatar>
       <h2>{{(activity.user | async)?.name}}</h2>
-      <p>{{activity.date | date:'d MMM, H:m'}}</p>
+      <p>{{activity.date | date:'d MMM, HH:mm'}}</p>
     </ion-item>
     <ion-card-content>
       <p>{{(activity.activity | async)?.name}}</p>

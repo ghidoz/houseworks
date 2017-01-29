@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Stats
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let stat of stats | async">
+    <ion-card-header>
+      {{(stat.activity | async)?.name}}
+    </ion-card-header>
+    <ion-list *ngFor="let user of stat.users">
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="(user.user | async)?.photo">
+        </ion-avatar>
+        {{(user.user | async)?.name}}
+        <ion-badge item-right>{{user.count}}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

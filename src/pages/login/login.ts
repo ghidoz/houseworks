@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AngularFire } from 'angularfire2';
 import { AuthService } from '../../providers/auth-service';
 
 /*
@@ -20,7 +19,6 @@ export class LoginPage {
               private authService: AuthService) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
   login() {

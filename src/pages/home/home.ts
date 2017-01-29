@@ -11,7 +11,7 @@ import { FirebaseListObservable } from 'angularfire2';
 })
 export class HomePage {
 
-  userActivities: FirebaseListObservable<any[]>
+  userActivities: FirebaseListObservable<any[]>;
 
   constructor(private navCtrl: NavController,
               private modalCtrl: ModalController,

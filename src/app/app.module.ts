@@ -10,13 +10,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AddActivityPage } from '../pages/add-activity/add-activity';
 import { ActivityService } from '../providers/activity';
 import { AuthService } from '../providers/auth-service';
-
-export const firebaseConfig = {
-  apiKey: 'AIzaSyDLmHpaUw-YK2dP-zT8j1n44WntFrrcJYw',
-  authDomain: 'houseworks-ffa4e.firebaseapp.com',
-  databaseURL: 'https://houseworks-ffa4e.firebaseio.com',
-  storageBucket: 'houseworks-ffa4e.appspot.com'
-};
+import { firebaseConfig } from './config';
 
 @NgModule({
   declarations: [

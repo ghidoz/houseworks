@@ -47,6 +47,10 @@ export class ActivityService {
     this.list.push(userActivity);
   }
 
+  delete(id: string) {
+    this.list.remove(id);
+  }
+
   stats(startAt$: Subject<number>): FirebaseListObservable<any[]> {
     return this.af.database.list('/' + this.userService.user.group + '/userActivities', {
       query: {

@@ -4,7 +4,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth-service';
 import * as firebase from 'firebase';
 import * as _ from 'lodash';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 /*
   Generated class for the Activity provider.
@@ -24,7 +24,7 @@ export class ActivityService {
   query(): FirebaseListObservable<any[]> {
     this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities', {
       query: {
-        orderByKey: true
+        orderByChild: 'date'
       }
     })
       .map((activities: any) => {
@@ -71,6 +71,31 @@ export class ActivityService {
         }
       }));
       return response;
+    }) as FirebaseListObservable<any[]>
+  }
+
+  ranking(startAt$: Subject<number>): FirebaseListObservable<any[]> {
+    return this.af.database.list('/' + this.userService.user.group + '/userActivities', {
+      query: {
+        orderByChild: 'date',
+        startAt: startAt$
+      }
+    }).flatMap((response: any) => {
+      response = _.groupBy(response, 'user');
+      return Observable.combineLatest(
+        _.values(_.mapValues(response, (userActivities: any, userId: string) => {
+          return Observable.combineLatest(
+            userActivities.map((userActivity) => this.af.database.object('/' + this.userService.user.group + '/activities/' + userActivity.activity))
+          ).map((activities) => {
+            return {
+              user: this.af.database.object('/users/' + userId),
+              points: _.sumBy(activities, 'points')
+            }
+          });
+        }))
+      ).map((rankings) => {
+        return _.reverse(_.orderBy(rankings, 'points'));
+      });
     }) as FirebaseListObservable<any[]>
   }
 

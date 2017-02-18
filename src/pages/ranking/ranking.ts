@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import { ActivityService } from '../../providers/activity';
+import { FirebaseListObservable } from 'angularfire2';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'page-ranking',
@@ -8,8 +11,29 @@ import { NavController } from 'ionic-angular';
 })
 export class RankingPage {
 
-  constructor(public navCtrl: NavController) {
+  public ranking: FirebaseListObservable<any[]>;
+  private startAt$: Subject<number> = new BehaviorSubject<number>(null);
+  private filter: string = '';
 
+  constructor(public navCtrl: NavController,
+              private activityService: ActivityService) {
+
+  }
+
+  ionViewDidLoad() {
+    this.ranking = this.activityService.ranking(this.startAt$);
+  }
+
+  public filterStats($event) {
+    let date: number = null;
+    if (this.filter === 'week') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24 * 7;
+    } else if (this.filter === 'month') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24 * 30;
+    } else if (this.filter === 'day') {
+      date = new Date().getTime() - 1000 * 60 * 60 * 24;
+    }
+    this.startAt$.next(date);
   }
 
 }

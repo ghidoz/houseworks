@@ -6,6 +6,35 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div padding>
+    <ion-segment (ionChange)="filterStats()" [(ngModel)]="filter">
+      <ion-segment-button value="">
+        Lifetime
+      </ion-segment-button>
+      <ion-segment-button value="month">
+        Last month
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        Last week
+      </ion-segment-button>
+      <ion-segment-button value="day">
+        Last 24h
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <ion-card>
+    <ion-card-header>
+      The winner is...
+    </ion-card-header>
+    <ion-list *ngFor="let rank of ranking | async">
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="(rank.user | async)?.photo">
+        </ion-avatar>
+        {{(rank.user | async)?.name}}
+        <ion-badge item-right>{{rank.points}} <ion-icon name="star"></ion-icon></ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>

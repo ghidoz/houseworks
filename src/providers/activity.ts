@@ -31,6 +31,7 @@ export class ActivityService {
         activities = activities.reverse();
         activities.map((userActivity: any) => {
           userActivity.activity = this.af.database.object('/' + this.userService.user.group + '/activities/' + userActivity.activity);
+          userActivity.userId = userActivity.user;
           userActivity.user = this.af.database.object('/users/' + userActivity.user);
         });
         return activities;

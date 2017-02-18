@@ -10,7 +10,7 @@
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  <ion-card *ngFor="let activity of userActivities | async" (pan)="onSwipe($event, activity.$key)">
+  <ion-card *ngFor="let activity of userActivities | async" (pan)="onSwipe($event, activity)">
     <ion-item>
       <ion-avatar item-left>
         <img [src]="(activity.user | async)?.photo">

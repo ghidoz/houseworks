@@ -31,24 +31,28 @@ export class HomePage {
     let element = event.target.closest('.card');
     element.style['margin-left'] = event.deltaX + 'px';
     if (event.isFinal) {
-      this.alertCtrl.create({
-        title: 'Delete?',
-        message: 'Do you want to delete this activity?',
-        buttons: [
-          {
-            text: 'No',
-            handler: () => {
-              element.style['margin-left'] = '';
+      if (Math.abs(event.deltaX) >= 100) {
+        this.alertCtrl.create({
+          title: 'Delete?',
+          message: 'Do you want to delete this activity?',
+          buttons: [
+            {
+              text: 'No',
+              handler: () => {
+                element.style['margin-left'] = '';
+              }
+            },
+            {
+              text: 'Yes!',
+              handler: () => {
+                this.activityService.delete(activityId);
+              }
             }
-          },
-          {
-            text: 'Yes, delete!',
-            handler: () => {
-              this.activityService.delete(activityId);
-            }
-          }
-        ]
-      }).present();
+          ]
+        }).present();
+      } else {
+        element.style['margin-left'] = '';
+      }
     }
   }
 

@@ -24,9 +24,11 @@ export class ActivityService {
   query(): FirebaseListObservable<any[]> {
     this.list = this.af.database.list('/' + this.userService.user.group + '/userActivities', {
       query: {
-        orderByChild: 'date'
+        orderByChild: 'date',
+        startAt: new Date().getTime() - 1000 * 60 * 60 * 24 * 7
       }
-    })
+    });
+    return this.list
       .map((activities: any) => {
         activities = activities.reverse();
         activities.map((userActivity: any) => {
@@ -36,7 +38,7 @@ export class ActivityService {
         });
         return activities;
       }) as FirebaseListObservable<any[]>;
-    return this.list;
+    ;
   }
 
   save(id: string) {

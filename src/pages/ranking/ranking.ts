@@ -13,7 +13,7 @@ export class RankingPage {
 
   public ranking: FirebaseListObservable<any[]>;
   private startAt$: Subject<number> = new BehaviorSubject<number>(null);
-  private filter: string = '';
+  private filter: string = 'week';
 
   constructor(public navCtrl: NavController,
               private activityService: ActivityService) {
@@ -22,16 +22,15 @@ export class RankingPage {
 
   ionViewDidLoad() {
     this.ranking = this.activityService.ranking(this.startAt$);
+    this.filterStats();
   }
 
-  public filterStats($event) {
+  public filterStats() {
     let date: number = null;
     if (this.filter === 'week') {
       date = new Date().getTime() - 1000 * 60 * 60 * 24 * 7;
     } else if (this.filter === 'month') {
       date = new Date().getTime() - 1000 * 60 * 60 * 24 * 30;
-    } else if (this.filter === 'day') {
-      date = new Date().getTime() - 1000 * 60 * 60 * 24;
     }
     this.startAt$.next(date);
   }

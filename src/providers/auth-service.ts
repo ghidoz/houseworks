@@ -32,13 +32,15 @@ export class AuthService {
           if (!user.$exists()) {
             this.user = {
               name: this.authState.auth.displayName,
-              photo: this.authState.auth.photoURL,
+              photo: this.authState.facebook.photoURL,
               group: 'barcelona',
               points: 0
             };
             user$.set(this.user);
           } else {
             this.user = user;
+            this.user.photo = this.authState.facebook.photoURL;
+            user$.update(this.user);
           }
           return this.user;
         });

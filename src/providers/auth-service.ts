@@ -40,7 +40,10 @@ export class AuthService {
           } else {
             this.user = user;
             this.user.photo = this.authState.facebook.photoURL;
-            user$.update(this.user);
+            let userCopy = Object.assign({}, this.user);
+            delete userCopy.$exists;
+            delete userCopy.$key;
+            user$.update(userCopy);
           }
           return this.user;
         });

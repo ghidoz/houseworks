@@ -11,6 +11,7 @@ import { AddActivityPage } from '../pages/add-activity/add-activity';
 import { ActivityService } from '../providers/activity';
 import { AuthService } from '../providers/auth-service';
 import { firebaseConfig } from './config';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { firebaseConfig } from './config';
     AddActivityPage
   ],
   imports: [
+    BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
